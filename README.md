@@ -1,7 +1,6 @@
 # Lab 08: Navigating Weighted Graphs with Dijkstra's Algorithm
 
-Name(s): _______________________  
-
+Name(s): Kallan Fuchs
 ## Introduction
 You are already familiar with Breadth-First Search (BFS) and Depth-First Search (DFS) for exploring graphs. However, what happens when all edges are not created equal? In this lab, we will explore Dijkstra's Algorithm, which allows us to find the shortest path between two vertices in a *weighted* graph.
 
@@ -15,13 +14,13 @@ BFS is excellent for finding the shortest path in an unweighted graph. Let's see
 
 **Questions:**
 1. If you run a standard BFS starting at Node $A$, looking for Node $D$, which path will the BFS algorithm discover first? Why?
-   > *Your answer here*
+   > *It will find first the path from A to D as its only one vertex away and BFS expands to D and B first.*
 
 2. What is the total weight of the path BFS found? What is the total weight of the alternative path? 
-   > *Your answer here*
+   > *The total BFS weight is 100 due to the edge being highly weighted. The alternative path only weighs a total of 9 due to lower edge weights.*
 
 3. How does the definition of "shortest path" change when moving from unweighted graphs to weighted graphs?
-   > *Your answer here*
+   > *It changes a ton due to each path edge holding a weight makind number of vertex less important as one edge such as A to D can hold more weight then the others combined.*
 
 ---
 
@@ -41,14 +40,14 @@ Starting at Node $A$, trace Dijkstra's algorithm. Fill in the tracker table belo
 | Step | Current Node | Neighbors to Check | `dist` Map | `visited` Set | 
 | :--- | :--- | :--- | :--- | :--- | 
 | 0 | $A$ | $B$, $C$ | $A$:0, $B$:4, $C$:2 | { } | 
-| 1 | | | | | 
-| 2 | | | | | 
-| 3 | | | | | 
-| 4 | | | | | 
+| 1 | $C$ | $B$, $D$, $E$ | $C$: 2, $B$: 3, $D$: 10, $E$: 12 | {$C$} | 
+| 2 | $B$ | $D$ | $B$: 3, $D$: 8| {$C$, $B$} | 
+| 3 | $D$ | $E$ | $D$: 8, $E$: 10| {$C$, $B$, $D$} |
+| 4 | $E$ | | $E$: 10 | {$C$, $B$, $D$, $E$} | 
 
 **Conceptual Question:**
 When we add a vertex to the "visited" set, why are we 100% certain we have found the absolute shortest path to that node? 
-> *Your answer here*
+> *Yes, as it scans every possible path locating the lowest possible cumulative score adding up all the past scores with each one added on.*
 
 ---
 
@@ -62,16 +61,16 @@ Dijkstra's algorithm relies on an assumption about the weights. Let's see what h
 Trace Dijkstra's algorithm starting from Node $A$ to find the shortest path to Node $C$.
 
 1. Which node does Dijkstra's algorithm visit first after $A$?
-   > *Your answer here*
+   > *It would visit B as its the lowest cost edge to travle to the next vertex.*
 
 2. What will Dijkstra's algorithm declare as the shortest path to $C$, and what is its weight?
-   > *Your answer here*
+   > *It will declare A to B to C with a total weight of -2.*
 
 3. Look at the graph manually. What is the *actual* shortest path from $A$ to $C$, and what is its total weight? 
-   > *Your answer here*
+   > *The actual shortest path is A to C with only one edge followed its total weight is higher at 5 but length is shorter.*
 
 4. **The Trap:** Explain exactly *why* Dijkstra's algorithm failed to find the correct shortest path in this scenario.
-   > *Your answer here*
+   > *It fails in that it prioritises weight and doesn't take into account legnth in terms of edges.*
 
 ---
 
@@ -95,8 +94,8 @@ Standard Dijkstra's algorithm only understands *edges* and *edge weights*. It do
 
 1. How should you represent the paths with stairs in your graph so the algorithm never tries to use them?
 
-   > *Your answer here*
+   > *You should represent its edge as having infinite weight as the robot won't continue past it.*
 
 2. How can you account for the $3$-minute waiting time at busy crosswalk intersections using *only* edge weights? (Hint: Think about how you could modify the weights of edges connecting to that intersection).
 
-   > *Your answer here*
+   > *You could add the three minute to the edges after the node as it has to weight that time before contiuing.*
